@@ -55,5 +55,6 @@ Route::GROUP(['middleware' => ['auth:user']], function() {
     // Admin (handle company)
     Route::GET('/admin/company-list', 'Backend\CompaniesController@index')->name('company.list');
     Route::GET('/admin/create-company', 'Backend\CompaniesController@create')->name('company.create');
+    Route::get( '/admin/company-search/{id}', 'Backend\CompaniesController@search' )->name('search');
     Route::POST('/admin/company-store', 'Backend\CompaniesController@store')->name('company.store');
 });

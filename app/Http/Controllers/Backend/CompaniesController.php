@@ -36,11 +36,17 @@ class CompaniesController extends Controller
         $company->form_action = $this->getRoute() . '.create';
         $company->page_title = 'Company Add Page';
         $company->page_type = 'store';
-        $postcodes = Postcode::pluck('prefecture', 'id');
-        $selectedID = 1;
+        $prefectures = Postcode::pluck('prefecture', 'id');
+        $city = Postcode::pluck('city', 'id');
+        $local = Postcode::pluck('local', 'id');
+
         return view('backend.companies.form', compact('postcodes'), [
             'company' => $company
         ]);
+    }
+
+    public function search(Request $request){
+        $request->get('search');
     }
 
     /**
@@ -51,9 +57,9 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        // Company::create($request->all());
-        // return redirect('company.list');
+        // return $request;
+        Company::create($request->all());
+        return redirect('company.list');
     }
 
     /**
@@ -75,13 +81,13 @@ class CompaniesController extends Controller
      */
     public function edit(Company $company)
     {
-        $company = User::find($id);
+        $company = Company::find($id);
         $company->form_action = $this->getRoute() . '.update';
         $company->page_title = 'User Edit Page';
         // Add page type here to indicate that the form.blade.php is in 'edit' mode
         $company->page_type = 'edit';
-        return view('backend.users.form', [
-            'user' => $company
+        return view('backend.company.form', [
+            'company' => $company
         ]);
     }
 
