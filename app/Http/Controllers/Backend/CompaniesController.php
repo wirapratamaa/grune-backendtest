@@ -98,12 +98,12 @@ class CompaniesController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request)
     {
-        // $company = Company::find($id);
-        // $company->update($request->all());
-        // return redirect('/admin/company-list');
-        return $request;
+        $company = Company::find($request->get('id'));;
+        $company->update($request->all());
+        return redirect('/admin/company-list');
+        // return $request;
     }
 
     /**
