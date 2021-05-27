@@ -33,21 +33,21 @@ class CompaniesController extends Controller
     public function create()
     {
         $company = new Company();
-        $company->form_action = $this->getRoute() . '.create';
+        $company->form_action = $this->getRoute() . '.store';
         $company->page_title = 'Company Add Page';
         $company->page_type = 'store';
-        $prefectures = Postcode::pluck('prefecture', 'id');
-        $city = Postcode::pluck('city', 'id');
-        $local = Postcode::pluck('local', 'id');
+        // $prefectures = Postcode::pluck('prefecture', 'id');
+        // $city = Postcode::pluck('city', 'id');
+        // $local = Postcode::pluck('local', 'id');
 
-        return view('backend.companies.form', compact('postcodes'), [
+        return view('backend.companies.form', [
             'company' => $company
         ]);
     }
 
-    public function search(Request $request){
-        $request->get('search');
-    }
+    // public function search(Request $request){
+    //     $request->get('search');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -59,7 +59,7 @@ class CompaniesController extends Controller
     {
         // return $request;
         Company::create($request->all());
-        return redirect('company.list');
+        return redirect('/admin/company-list');
     }
 
     /**
@@ -79,14 +79,14 @@ class CompaniesController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
         $company = Company::find($id);
         $company->form_action = $this->getRoute() . '.update';
-        $company->page_title = 'User Edit Page';
+        $company->page_title = 'Company Edit Page';
         // Add page type here to indicate that the form.blade.php is in 'edit' mode
         $company->page_type = 'edit';
-        return view('backend.company.form', [
+        return view('backend.companies.form', [
             'company' => $company
         ]);
     }
@@ -98,9 +98,10 @@ class CompaniesController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request)
     {
-        //
+        $newCompany = $request->all();
+        return redirect('/admin/company-list');
     }
 
     /**
@@ -109,10 +110,11 @@ class CompaniesController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Request $request)
     {
-        Company::destroy($company->id);
-        return redirect('company.list');
+        $company = Company::find($request->get('id'));
+        $company->delete();
+        return redirect('/admin/company-list');
 
     }
 }

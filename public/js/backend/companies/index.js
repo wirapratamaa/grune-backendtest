@@ -24,8 +24,8 @@ $(function () {
 
     // Formatter for edit/delete
     var formatActionField = function (row, cell, formatterParams) {
-        return '<form id="form-delete-' + row.getData()['id'] + '" action="' + rootUrl + '/admin/delete/" method="get">' +
-               '<a class="btn btn-primary" href="' + rootUrl + '/admin/edit/' + row.getData()['id'] + '" title="Edit"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;' +
+        return '<form id="form-delete-' + row.getData()['id'] + '" action="' + rootUrl + '/admin/delete-company/" method="get">' +
+               '<a class="btn btn-primary" href="' + rootUrl + '/admin/edit-company/' + row.getData()['id'] + '" title="Edit"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;' +
                '<input type="hidden" name="id" value="' + row.getData()['id'] + '">' +
                '<input type="hidden" name="delete_flag" value="1">' +
                '<span onclick="javascript:if(confirm(\'Are you sure want to delete this Data？\')) { document.getElementById(\'form-delete-' + row.getData()['id'] + '\').submit(); } return false;" class="btn btn-warning btn-delete" title="削除"><i class="fa fa-trash"></i></span>' +
