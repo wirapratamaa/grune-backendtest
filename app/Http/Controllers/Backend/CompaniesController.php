@@ -85,7 +85,7 @@ class CompaniesController extends Controller
         $company->form_action = $this->getRoute() . '.update';
         $company->page_title = 'Company Edit Page';
         // Add page type here to indicate that the form.blade.php is in 'edit' mode
-        $company->page_type = 'edit';
+        $company->page_type = 'update';
         return view('backend.companies.form', [
             'company' => $company
         ]);
@@ -98,10 +98,12 @@ class CompaniesController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Company $company)
     {
-        $newCompany = $request->all();
-        return redirect('/admin/company-list');
+        // $company = Company::find($id);
+        // $company->update($request->all());
+        // return redirect('/admin/company-list');
+        return $request;
     }
 
     /**
